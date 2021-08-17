@@ -107,7 +107,7 @@ def train(epochs, batch_size=128, save_interval=50, keep_from=0):
 
         noise = np.random.normal(0, 1, (batch_size, 100))
 
-        '''================================================================================================='''
+
         valid_y = np.array([1] * batch_size)
 
         g_loss = combined.train_on_batch(noise, valid_y)
@@ -116,13 +116,14 @@ def train(epochs, batch_size=128, save_interval=50, keep_from=0):
 
         # If at save interval => save generated image samples
         if epoch % save_interval == 0:
-            save_imgs(epoch,generator)
-            generator.save('generator_model.h5')
-            discriminator.save('discriminator_model.h5')
-            classifier.save('classifier_model.h5')
+            save_imgs(epoch)
+            generator.save('models/generator_model.h5')
+            discriminator.save('models/discriminator_model.h5')
+            classifier.save('models/classifier_model.h5')
 
 
-def save_imgs(epoch,generator):
+def save_imgs(epoch):
+    generator = load_model('models/generator_model.h5')
     r, c = 5, 5
     noise = np.random.normal(0, 1, (r * c, 100))
     for i in range(25):
@@ -136,13 +137,13 @@ def save_imgs(epoch,generator):
             axs[i, j].imshow(gen_imgs[cnt, :, :, 0], cmap='gray')
             axs[i, j].axis('off')
             cnt += 1
-    fig.savefig("images/mnist_%d.png" % epoch)
+    fig.savefig("output_images/mnist_%d.png" % epoch)
     plt.close()
 
 
 def generate_numbers ():
-    generator_ = load_model('generator_model.h5')
-    classifier_ = load_model('classifier_model.h5')
+    generator_ = load_model('models/generator_model.h5')
+    classifier_ = load_model('models/classifier_model.h5')
     vector = randn(10000)
     vector = vector.reshape(100, 100)
     X = generator_.predict(vector)
