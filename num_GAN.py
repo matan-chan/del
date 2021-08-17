@@ -9,6 +9,7 @@ from keras.optimizers import Adam
 import matplotlib.pyplot as plt
 import numpy as np
 from numpy.random import randn
+
 img_rows = 28
 img_cols = 28
 channels = 1
@@ -68,10 +69,10 @@ def train(epochs, batch_size=128, save_interval=50, keep_from=0):
     optimizer = Adam(0.0002, 0.5)
 
     discriminator = build_discriminator()
-    discriminator.compile(loss='binary_crossentropy',optimizer=optimizer,metrics=['accuracy'])
+    discriminator.compile(loss='binary_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
     classifier = build_classifier()
-    classifier.compile(loss='sparse_categorical_crossentropy',optimizer=optimizer,metrics=['accuracy'])
+    classifier.compile(loss='sparse_categorical_crossentropy', optimizer=optimizer, metrics=['accuracy'])
 
     generator = build_generator()
     generator.compile(loss='binary_crossentropy', optimizer=optimizer)
@@ -107,7 +108,6 @@ def train(epochs, batch_size=128, save_interval=50, keep_from=0):
 
         noise = np.random.normal(0, 1, (batch_size, 100))
 
-
         valid_y = np.array([1] * batch_size)
 
         g_loss = combined.train_on_batch(noise, valid_y)
@@ -141,18 +141,17 @@ def save_imgs(epoch):
     plt.close()
 
 
-def generate_numbers ():
+def generate_numbers():
     generator_ = load_model('models/generator_model.h5')
     classifier_ = load_model('models/classifier_model.h5')
     vector = randn(10000)
     vector = vector.reshape(100, 100)
     X = generator_.predict(vector)
     preds = classifier_.predict(X)
-    num_array = np.zeros((10,28,28,1))
+    num_array = np.zeros((10, 28, 28, 1))
     for i in range(20):
         num_array[np.argmax(preds[i])] = X[i]
     return num_array
-
 
 
 train(epochs=100000, batch_size=32, save_interval=500)
