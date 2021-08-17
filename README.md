@@ -5,7 +5,7 @@ creates photos of numbers between 0 and 9 using ANN
 1. tensorflow 2.41 and above
 2. numpy 
 
-assssssssssssssssssssssss
+dsfsd
 ## usage
 ```python
 from num_GAN import generate_numbers
