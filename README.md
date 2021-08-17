@@ -2,8 +2,8 @@
 creates photos of numbers between 0 and 9 using ANN
 
 ## requirement
-tensorflow 2.41 and above
-numpy
+1. tensorflow 2.41 and above
+2. numpy
 ## usage
 ```python
 from num_GAN import generate_numbers
