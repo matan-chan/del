@@ -1,11 +1,10 @@
 # number_creator_GAN
-creates photos of numbers between 0 and 9 using ANN
+creates a photos of numbers between 0 and 9 using ANN
 
 ## requirement
 1. tensorflow 2.41 and above
 2. numpy 
 
-kk
 ## usage
 ```python
 from num_GAN import generate_numbers
